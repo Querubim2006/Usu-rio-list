@@ -6,8 +6,8 @@
 
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Usu·rios</h1>
-    <p class="mb-4">Formul·rio de Cadastro</p>
+    <h1 class="h3 mb-2 text-gray-800">Usu√°rios</h1>
+    <p class="mb-4">Formul√°rio de Cadastro</p>
 
     <a class="btn btn-secondary mb-4" href="${pageContext.request.contextPath}/UsuarioListar">
         <i class="fas fa-undo-alt"></i>
@@ -41,7 +41,7 @@
                                        value="${usuario.dataNascimento}"/>
                             </div>
                             <div class="col-sm">
-                                <label>Valor do Sal·rio</label>
+                                <label>Valor do Sal√°rio</label>
                                 <input class="form-control" type="text" style="text-align:right;" 
                                            name="salario" id="salario" 
                                            value="<fmt:formatNumber value='${usuario.salario}' type='currency'/>" />
@@ -69,7 +69,7 @@
                                value="${usuario.senha}" size="100" maxlength="100" 
                                required="true"/>
                     </div>
-                    <!-- Bot„o de ConfirmaÁ„o --> 
+                    <!-- Bot√£o de Confirma√ß√£o --> 
                     <div class="form-group">
                         <button class="btn btn-success" type="submit" id="submit" onclick="validarCampos()">
                             Salvar Documento</button>
@@ -133,7 +133,7 @@
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'warning',
-                                    title: 'CPF j· cadastrado!',
+                                    title: 'CPF j√° cadastrado!',
                                     text: 'Por favor, verifique o CPF informado.',
                                     showConfirmButton: true,
                                     timer: 4000
@@ -177,12 +177,12 @@
     }
 
     function validarCampos() {
-        console.log("entrei na validaÁ„o de campos");
+        console.log("entrei na valida√ß√£o de campos");
         if (document.getElementById("nome").value === '') {
             Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: 'Verifique o nome do usu·rio!',
+                title: 'Verifique o nome do usu√°rio!',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -227,7 +227,7 @@
             Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: 'Verifique o valor do sal·rio!',
+                title: 'Verifique o valor do sal√°rio!',
                 showConfirmButton: false,
                 timer: 1000
             });
@@ -244,8 +244,8 @@
         Swal.fire({
             position: 'center',
             icon: 'error',
-            title: 'E-mail inv·lido!',
-            text: 'Digite um e-mail v·lido.',
+            title: 'E-mail inv√°lido!',
+            text: 'Digite um e-mail v√°lido.',
             showConfirmButton: true
         });
 
@@ -254,7 +254,6 @@
         return;
     }
 
-    // VERIFICA EMAIL DUPLICADO
     $.ajax({
         type: 'get',
         url: 'UsuarioVerificarEmail',
@@ -267,7 +266,7 @@
                 Swal.fire({
                     position: 'center',
                     icon: 'warning',
-                    title: 'E-mail j· cadastrado!',
+                    title: 'E-mail j√° cadastrado!',
                     showConfirmButton: true
                 });
 
@@ -275,7 +274,7 @@
 
             } else {
 
-                // SALVA SOMENTE SE EMAIL ESTIVER OK
+            
                 gravarDados();
 
             }
@@ -317,11 +316,11 @@
                         position: 'center',
                         icon: 'success',
                         title: 'Sucesso',
-                        text: 'Usu·rio gravado com sucesso!',
+                        text: 'Usu√°rio gravado com sucesso!',
                         showConfirmButton: true,
                         timer: 3000
                     }).then(function () {
-                        // RECARREGA A P¡GINA INTEIRA com formul·rio limpo
+                        
                         window.location.href = 'UsuarioNovo';
                     });
                 } else if (data == 3) {
@@ -340,7 +339,7 @@
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
-                        title: 'CPF j· cadastrado!',
+                        title: 'CPF j√° cadastrado!',
                         showConfirmButton: true,
                         timer: 5000
                     }).then(function () {
@@ -352,7 +351,7 @@
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
-                        title: 'Dados em branco ou n„o informados, verifique!',
+                        title: 'Dados em branco ou n√£o informados, verifique!',
                         showConfirmButton: true,
                         timer: 5000
                     }).then(function () {
@@ -364,7 +363,7 @@
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
-                        title: 'N„o foi possÌvel gravar o usu·rio!',
+                        title: 'N√£o foi poss√≠vel gravar o usu√°rio!',
                         showConfirmButton: true,
                         timer: 5000
                     }).then(function () {
@@ -378,8 +377,8 @@
                 Swal.fire({
                     position: 'center',
                     icon: 'error',
-                    title: 'Erro de comunicaÁ„o',
-                    text: 'Falha na comunicaÁ„o com o servidor.',
+                    title: 'Erro de comunica√ß√£o',
+                    text: 'Falha na comunica√ß√£o com o servidor.',
                     showConfirmButton: true,
                     timer: 5000
                 }).then(function () {
