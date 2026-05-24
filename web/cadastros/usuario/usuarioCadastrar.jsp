@@ -50,10 +50,19 @@
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input class="form-control" type="email" name="email" id="email" 
-                               value="${usuario.email}" size="100" maxlength="100" 
+
+                        <input class="form-control"
+                               type="email"
+                               name="email"
+                               id="email"
+                               value="${usuario.email}"
+                               size="100"
+                               maxlength="100"
                                required="true"/>
+
+                        <small id="msgEmail" style="color:red;"></small>
                     </div>
+
                     <div class="form-group">
                         <label>Senha</label>
                         <input class="form-control" type="password" name="senha" id="senha" 
@@ -112,7 +121,6 @@
                 console.log("validou digito verificador cpf");
                 trocaMascara($('#cpf').val());
                 console.log("verificando cpf no backend");
-                // Se passou pela validação local, faz a verificação no backend
                 if ($('#id').val() == 0){
                     $.ajax({
                         type: 'get',
@@ -144,12 +152,12 @@
         
         $('#nome').focus();
     });
-    
+
     function trocaMascara(cpfCnpj) {
         console.log("entrei no troca mascara");
         console.log(cpfCnpj);
         
-        // Se o parâmetro for undefined (ou não passado), pega do campo
+
         if (typeof cpfCnpj === 'undefined') {
             cpfCnpj = "";
         }
@@ -158,7 +166,7 @@
 
         if (cpfCnpj !== "") {
             var masks = ['999.999.999-99', '99.999.999/9999-99'];
-            var cpfcnpj = cpfCnpj.replace(/\D/g, ''); // remove tudo que não for número
+            var cpfcnpj = cpfCnpj.replace(/\D/g, ''); 
             var mask = (cpfcnpj.length > 11) ? masks[1] : masks[0];
             console.log("trocou: " + mask);
             $('#cpf').unmask().mask(mask);
@@ -224,9 +232,67 @@
                 timer: 1000
             });
             $("#salario").focus();
-        } else {
-            gravarDados();
+
+} else {
+
+    let email = document.getElementById("email").value.trim();
+
+    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!regexEmail.test(email)) {
+
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'E-mail inválido!',
+            text: 'Digite um e-mail válido.',
+            showConfirmButton: true
+        });
+
+        $("#email").focus();
+
+        return;
+    }
+
+    // VERIFICA EMAIL DUPLICADO
+    $.ajax({
+        type: 'get',
+        url: 'UsuarioVerificarEmail',
+        data: { email: email },
+
+        success: function(response) {
+
+            if (response == '1') {
+
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'E-mail já cadastrado!',
+                    showConfirmButton: true
+                });
+
+                $("#email").focus();
+
+            } else {
+
+                // SALVA SOMENTE SE EMAIL ESTIVER OK
+                gravarDados();
+
+            }
+        },
+
+        error: function() {
+
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Erro ao validar e-mail!'
+            });
+
         }
+    });
+
+}
     }
     
     function gravarDados() {
@@ -304,7 +370,7 @@
                     }).then(function () {
                         setTimeout(function () {
                             $('#nome').focus();
-                        }, 50); // um pequeno atraso resolve o problema
+                        }, 50);
                     });
                 }
             },
